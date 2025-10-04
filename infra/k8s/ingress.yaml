@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: perm-log-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1/$3
+  labels:
+    app.kubernetes.io/name: perm-log-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: /api/(perm)(/|$)(.*)
+            backend:
+              service:
+                name: perm-clusterip
+                port:
+                  number: 3000
+          - pathType: ImplementationSpecific
+            path: /api/(log)(/|$)(.*)
+            backend:
+              service:
+                name: log-clusterip
+                port:
+                  number: 3000

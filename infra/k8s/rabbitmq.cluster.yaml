@@ -1,0 +1,15 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq-cluster
+spec:
+  persistence:
+    storageClassName: hostpath
+    storage: 10Mi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 200Mi

@@ -1,0 +1,8 @@
+### test
+POST http://localhost/api/perm/compute
+Content-Type: application/json
+
+{
+    "term": 2,
+    "computeDelay": 3
+}

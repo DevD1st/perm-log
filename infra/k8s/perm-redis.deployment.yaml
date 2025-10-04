@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: perm-redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: perm-redis
+  template:
+    metadata:
+      labels:
+        service: perm-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379
