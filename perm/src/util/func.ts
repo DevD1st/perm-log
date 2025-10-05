@@ -16,9 +16,20 @@ export async function validateDto(dto: object) {
 
   if (validationResult.length)
     throw new PermLogError({
-      // TODO: should have validation error code
-      name: PermLogErrorCodeEnum.Unknown,
+      name: PermLogErrorCodeEnum.ValidationError,
       message: firstErrorMessage,
       data: validationResult,
     });
+}
+
+/**
+ * calculate the factorial of a number
+ */
+export function factorial(n: number) {
+  if (n < 0) return 0; // factorial not defined for negative numbers
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
 }

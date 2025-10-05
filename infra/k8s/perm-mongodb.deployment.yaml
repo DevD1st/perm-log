@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: perm-mongodb-deployment
+spec:
+  selector:
+    matchLabels:
+      service: perm-mongodb
+  template:
+    metadata:
+      labels:
+        service: perm-mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongodb/mongodb-community-server:7.0-ubuntu2204
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+            requests:
+              memory: "250Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 27017

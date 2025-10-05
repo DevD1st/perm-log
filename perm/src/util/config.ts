@@ -15,3 +15,4 @@ export const DEFAULT_LISTENNING_PORT_IF_NON_SPECIFIED = 3000;
  * Queue where delaye jobs would be
  */
 export const DELAY_QUEUE = "delay-queue";
+export const DEFAULT_QUERY_LIMIT = 10;

@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "start:dev": "ts-node-dev --no-poll src/index.ts"
+    "start:dev": "ts-node-dev --poll src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +18,8 @@
     "express": "^5.1.0",
     "http-status-codes": "^2.3.0",
     "ioredis": "^5.8.0",
-    "perm-log-library": "^1.0.5",
+    "mongoose": "^8.19.0",
+    "perm-log-library": "^1.0.11",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {

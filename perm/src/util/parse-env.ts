@@ -5,7 +5,6 @@ import { DEFAULT_LISTENNING_PORT_IF_NON_SPECIFIED } from "./config";
 
 export let EnvVars: ParsedEnvDto;
 
-// TODO: errors thrown here should be from library
 export function loadEnv() {
   const evnvs = dotenv.config();
 

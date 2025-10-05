@@ -19,8 +19,8 @@ spec:
             - containerPort: 3000
           resources:
             limits:
-              memory: "500Mi"
-              cpu: "500m"
+              memory: "1000Mi"
+              cpu: "1024m"
             requests:
               memory: "128Mi"
               cpu: "500m"
@@ -31,6 +31,8 @@ spec:
               value: perm-redis-clusterip
             - name: REDIS_PORT
               value: "6379"
+            - name: MONGODB_URI
+              value: perm-mongodb-clusterip
             - name: RABBITMQ_URI
               valueFrom:
                 secretKeyRef:

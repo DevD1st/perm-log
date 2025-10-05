@@ -33,4 +33,10 @@ export class ParsedEnvDto {
   })
   @Expose()
   RABBITMQ_URI!: string;
+
+  @IsString({
+    message: "Please provide a MONGODB_URI environment variable.",
+  })
+  @Expose()
+  MONGODB_URI!: string;
 }
