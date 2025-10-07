@@ -13,7 +13,6 @@ class LogService {
   constructor() {}
 
   async onQueueMessage(message: rabbit.ConsumeMessage) {
-    console.log("Message received");
     try {
       const content = JSON.parse(message.content.toString()) as {};
 
