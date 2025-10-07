@@ -39,4 +39,8 @@ export class ParsedEnvDto {
   })
   @Expose()
   MONGODB_URI!: string;
+
+  constructor(dto?: ParsedEnvDto) {
+    if (dto) Object.assign(this, dto);
+  }
 }

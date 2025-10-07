@@ -57,11 +57,11 @@ class PermService {
     );
   }
 
-  permComputeRequested(
+  async permComputeRequested(
     reqContext: RequestContextDto,
     dto: PermComputeReqestDto
   ) {
-    this.delayQueueProducer.add("perm", dto, {
+    await this.delayQueueProducer.add("perm", dto, {
       delay: (dto.computeDelay || 0) * 1000, // ms
     });
 
@@ -100,6 +100,7 @@ class PermService {
         Buffer.from(JSON.stringify(new PermCalculated(permObj)))
       );
     } catch (error) {
+      console.error(error);
       console.error(error);
     }
   }

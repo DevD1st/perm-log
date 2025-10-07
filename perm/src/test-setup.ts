@@ -2,7 +2,6 @@ import "reflect-metadata";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { ParsedEnvDto } from "./dtos/parsed-env.dto";
-// import { beforeAll, beforeEach, afterAll } from "@jest/globals";
 
 let mongodbMemoryServer: MongoMemoryServer;
 
@@ -14,6 +13,8 @@ beforeAll(async () => {
     APP_PORT: 3000,
     MONGODB_URI: mongodbMemoryServer.getUri(),
     RABBITMQ_URI: "",
+    REDIS_HOSTNAME: "",
+    REDIS_PORT: 0,
   });
   process.env = { ...process.env, ...(envs as any) };
 });

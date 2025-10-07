@@ -16,10 +16,9 @@ declare module "express-serve-static-core" {
 
     const app = await server();
 
-    app.listen(EnvVars.APP_PORT, async () => {
+    await mongoose.connect(`mongodb://${EnvVars.MONGODB_URI}/log`);
+    app.listen(EnvVars.APP_PORT, () => {
       console.log(`Listening on port ${EnvVars.APP_PORT}!!`);
-
-      await mongoose.connect(`mongodb://${EnvVars.MONGODB_URI}/log`);
     });
   } catch (error) {
     console.error(error);

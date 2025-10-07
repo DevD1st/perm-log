@@ -18,7 +18,7 @@ PermController.post(
       });
       await validateDto(dto);
 
-      permService.permComputeRequested(req.context, dto);
+      await permService.permComputeRequested(req.context, dto);
 
       return res.status(StatusCodes.CREATED).json(
         new ResponseDto({
