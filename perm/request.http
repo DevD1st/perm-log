@@ -3,9 +3,9 @@ POST http://localhost/api/perm/compute
 Content-Type: application/json
 
 {
-    "term": 2,
+    "term": 9,
     "computeDelay": 10
 }
 
 ### Fetch perms
-GET http://localhost/api/perm?limit=5&offset=0
+GET http://localhost/api/perm/compute?limit=5&offset=0

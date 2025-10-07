@@ -20,3 +20,13 @@ build:
             src: src/**/*.ts
           - dest: .
             src: "*.http"
+    - image: devd1st/log
+      context: ../log
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: src/**/*.ts
+          - dest: .
+            src: "*.http"

@@ -10,11 +10,9 @@ import { DEFAULT_QUERY_LIMIT } from "../util/config";
 export const PermController = express.Router();
 
 PermController.post(
-  "/compute",
+  "",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("controller");
-
       const dto = plainToInstance(PermComputeReqestDto, req.body, {
         // excludeExtraneousValues: true,
       });

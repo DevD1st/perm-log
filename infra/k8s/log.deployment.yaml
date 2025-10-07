@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: log
+  template:
+    metadata:
+      labels:
+        service: log
+    spec:
+      containers:
+        - name: log
+          image: devd1st/log
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "1000Mi"
+              cpu: "1024m"
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: APP_PORT
+              value: "3000"
+            - name: MONGODB_URI
+              value: perm-mongodb-clusterip
+            - name: RABBITMQ_URI
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-cluster-default-user
+                  key: connection_string

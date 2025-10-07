@@ -61,8 +61,6 @@ class PermService {
     reqContext: RequestContextDto,
     dto: PermComputeReqestDto
   ) {
-    console.log("service");
-
     this.delayQueueProducer.add("perm", dto, {
       delay: (dto.computeDelay || 0) * 1000, // ms
     });
@@ -82,8 +80,6 @@ class PermService {
   }
 
   async onPermDelayCompleted(job: Job<any, any, string>) {
-    console.log("RECEIVED MESSAGE");
-
     if (!job.data) return;
 
     try {
@@ -103,7 +99,9 @@ class PermService {
         PermLogEventsEnum.PermCalculated,
         Buffer.from(JSON.stringify(new PermCalculated(permObj)))
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async fetchPerms(limit: number, offset: number) {

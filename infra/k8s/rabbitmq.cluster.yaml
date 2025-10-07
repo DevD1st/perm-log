@@ -8,8 +8,8 @@ spec:
     storage: 10Mi
   resources:
     requests:
-      cpu: 250m
+      cpu: 1000m
       memory: 100Mi
     limits:
-      cpu: 500m
-      memory: 200Mi
+      cpu: 2000m
+      memory: 2000Mi
