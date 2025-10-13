@@ -6,11 +6,13 @@ on:
             - main
         paths:
             - perm/**/*
+            - .github/workflows/perm*
     push:
         branches:
             - main
         paths:
             - perm/**/*
+            - .github/workflows/perm*
     workflow_dispatch:
 
 jobs:
@@ -21,10 +23,12 @@ jobs:
 
         runs-on: ubuntu-latest
 
+        defaults:
+            run:
+                working-directory: perm
+
         steps:
             - uses: actions/checkout@v4
-
-            - run: cd perm
 
             - name: install_node ${{ matrix.node_version }}
               uses: actions/setup-node@v3
@@ -35,4 +39,4 @@ jobs:
               run: npm i
 
             - name: test
-              run: npm run test:once
+              run: npm run test:ci
