@@ -7,12 +7,6 @@ on:
         paths:
             - perm/**/*
             - .github/workflows/perm*
-    push:
-        branches:
-            - main
-        paths:
-            - perm/**/*
-            - .github/workflows/perm*
     workflow_dispatch:
 
 jobs:

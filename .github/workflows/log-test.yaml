@@ -7,12 +7,6 @@ on:
         paths:
             - log/**/*
             - .github/workflows/log*
-    push:
-        branches:
-            - main
-        paths:
-            - log/**/*
-            - .github/workflows/log*
     workflow_dispatch:
 
 jobs:
