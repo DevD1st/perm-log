@@ -1,0 +1,38 @@
+name: PermTest
+
+on:
+    pull_request:
+        branches:
+            - main
+        paths:
+            - perm/**/*
+    push:
+        branches:
+            - main
+        paths:
+            - perm/**/*
+    workflow_dispatch:
+
+jobs:
+    test:
+        strategy:
+            matrix:
+                node_version: [20.x]
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - run: cd perm
+
+            - name: install_node ${{ matrix.node_version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node_version }}
+
+            - name: install dependencies
+              run: npm i
+
+            - name: test
+              run: npm run test:once

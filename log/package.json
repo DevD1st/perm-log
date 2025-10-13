@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "ts-node-dev --poll src/index.ts",
-    "test": "jest --watch --no-cache"
+    "test": "jest --watch --no-cache",
+    "test:once": "jest"
   },
   "keywords": [],
   "author": "",
