@@ -1,0 +1,86 @@
+# test, build and push to docker
+name: PermBuild
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    test_perm:
+        runs-on: ubuntu-latest
+
+        defaults:
+            run:
+                working-directory: perm
+
+        strategy:
+            matrix:
+                node_version: [20.x]
+
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+
+            - name: setup node
+              uses: actions/setup-node@v3
+
+            - name: install dependencies
+              run: npm i
+
+            - name: test perm
+              run: npm run test:ci
+
+    test_log:
+        runs-on: ubuntu-latest
+
+        defaults:
+            run:
+                working-directory: log
+
+        strategy:
+            matrix:
+                node_version: [20.x]
+
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+
+            - name: setup node
+              uses: actions/setup-node@v3
+
+            - name: install dependencies
+              run: npm i
+
+            - name: test log
+              run: npm run test:ci
+
+    build_and_push:
+        needs:
+            - test_perm
+            - test_log
+
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node_version: [20.x]
+
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+
+            - name: build perm
+              run: docker build ./perm -f ./perm/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/perm:latest -t ${{ secrets.DOCKER_USERNAME }}/perm:${{ github.sha }}
+
+            - name: build log
+              run: docker build ./log -f ./log/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/log:latest -t ${{ secrets.DOCKER_USERNAME }}/log:${{ github.sha }}
+
+            - name: login docker
+              run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+            - name: push images
+              run: |
+                  docker push ${{ secrets.DOCKER_USERNAME }}/perm
+                  docker push ${{ secrets.DOCKER_USERNAME }}/log
