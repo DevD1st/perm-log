@@ -5,7 +5,9 @@ metadata:
 deploy:
   kubectl:
     manifests:
-      - ./k8s/*.yaml
+      - ./k8s/dependencies/*.yaml
+      - ./k8s/apps/*.yaml
+      - ./k8s/scallers/*.yaml
 build:
   local:
     push: false
