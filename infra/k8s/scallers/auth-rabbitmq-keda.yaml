@@ -1,0 +1,9 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: auth-rabbitmq-keda
+spec:
+  secretTargetRef:
+    - parameter: host
+      name: rabbitmq-cluster-default-user
+      key: connection_string
