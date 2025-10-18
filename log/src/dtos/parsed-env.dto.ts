@@ -1,5 +1,5 @@
 import { Expose, Type } from "class-transformer";
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class ParsedEnvDto {
   @Type(() => Number)
@@ -23,6 +23,10 @@ export class ParsedEnvDto {
   })
   @Expose()
   MONGODB_URI!: string;
+
+  @IsOptional()
+  @Expose()
+  OTEL_NODE_ENABLED_INSTRUMENTATIONS?: string;
 
   constructor(dto?: ParsedEnvDto) {
     if (dto) Object.assign(this, dto);

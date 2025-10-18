@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "term": 9,
-    "computeDelay": 10
+    "computeDelay": 0
 }
 
 ### Fetch perms

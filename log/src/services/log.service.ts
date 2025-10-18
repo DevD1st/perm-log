@@ -8,6 +8,10 @@ import {
   PermRequested,
 } from "perm-log-library/build/util";
 import LogModel from "../schemas/log.schema";
+import { getAwareLogger } from "../util/aware-logger";
+import { SeverityNumber } from "@opentelemetry/api-logs";
+
+const logger = getAwareLogger("log.service");
 
 class LogService {
   constructor() {}
@@ -52,6 +56,16 @@ class LogService {
   }
 
   async fetchLogs(limit: number, offset: number) {
+    logger.emit({
+      severityNumber: SeverityNumber.DEBUG,
+      severityText: "DEBUG",
+      body: "Fetching logs..",
+      attributes: {
+        limit,
+        offset,
+      },
+    });
+
     const logs = await LogModel.find().limit(limit).skip(offset).exec();
 
     return logs.map((log) => log.toObject());

@@ -8,6 +8,7 @@ deploy:
       - ./k8s/dependencies/*.yaml
       - ./k8s/apps/*.yaml
       - ./k8s/scallers/*.yaml
+      - ./k8s/ingress/*.yaml
 build:
   local:
     push: false

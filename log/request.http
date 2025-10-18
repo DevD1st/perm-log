@@ -1,2 +1,2 @@
-### Fetch perms
+### Fetch logs
 GET http://localhost/api/log/all?limit=5&offset=0

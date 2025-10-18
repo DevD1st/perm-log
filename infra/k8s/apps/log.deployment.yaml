@@ -34,3 +34,5 @@ spec:
                 secretKeyRef:
                   name: rabbitmq-cluster-default-user
                   key: connection_string
+            - name: OTEL_NODE_ENABLED_INSTRUMENTATIONS
+              value: "http,mongoose,amqplib,express"
