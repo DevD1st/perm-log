@@ -1,4 +1,4 @@
 import "@opentelemetry/context-async-hooks";
-import instrumentTelemetry from "./util/instrumentations";
+import { instrumentTelemetry } from "./util/instrumentation";
 
 instrumentTelemetry();

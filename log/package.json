@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "ts-node-dev --poll --require ./src/preload-instrumentation.ts src/index.ts",
+    "start:dev": "ts-node-dev --poll --transpile-only --require ./src/preload-instrumentation.ts src/index.ts",
     "test": "jest --watch --no-cache",
     "test:ci": "jest --ci"
   },
