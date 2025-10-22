@@ -1,0 +1,80 @@
+alloy:
+  clustering:
+    enabled: false
+
+  configMap:
+    create: true
+    content: |
+      otelcol.receiver.otlp "default" {
+        grpc {}
+        http {}
+
+        output {
+          metrics = [otelcol.processor.batch.default_batch.input]
+          logs    = [otelcol.processor.batch.default_batch.input]
+          traces  = [otelcol.processor.batch.default_batch.input]
+        }
+      }
+
+      otelcol.processor.batch "default_batch" {
+        output {
+          metrics = [otelcol.exporter.prometheus.to_prometheus.input]
+          logs    = [otelcol.exporter.loki.to_loki.input]
+          traces  = [otelcol.exporter.otlp.to_tempo.input]
+        }
+      }
+
+      otelcol.exporter.otlp "to_tempo" {
+        client {
+          endpoint = "tempo.monitoring.svc.cluster.local:4317"
+          tls {
+            insecure = true
+          }
+        }
+      }
+
+      otelcol.exporter.loki "to_loki" {
+        forward_to = [loki.write.loki_write.receiver]
+      }
+
+      loki.write "loki_write" {
+        endpoint {
+          url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
+        }
+      }
+
+      otelcol.exporter.prometheus "to_prometheus" {
+        forward_to = []
+      }
+
+# This ensures the Alloy service exposes all necessary ports.
+service:
+  ports:
+    otlp-grpc:
+      port: 4317
+      name: otlp-grpc
+    otlp-http:
+      port: 4318
+      name: otlp-http
+
+    # This is the port for the /metrics endpoint we just configured
+    http-metrics:
+      port: 12345
+      name: http-metrics
+
+# This creates the "instruction card" for Prometheus.
+serviceMonitor:
+  enabled: true
+  namespace: monitoring # The namespace where Prometheus is running
+
+  labels:
+    # This label MUST match the release name of your
+    # kube-prometheus-stack installation.
+    # Find it with `helm list -n monitoring`
+    release: prometheus # <--- CHANGE THIS if your release name is different
+
+  endpoints:
+    # This tells Prometheus to scrape the 'http-metrics' port
+    - port: "http-metrics"
+      path: /metrics
+      interval: 15s
